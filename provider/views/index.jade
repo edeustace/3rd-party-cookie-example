@@ -1,0 +1,17 @@
+doctype 5
+html(xmlns="http://www.w3.org/1999/html")
+  head
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+
+
+    script.
+
+      $(document).ready(function(){
+        $.get("/session-info", function(data){
+          console.log("Got the following session info");
+          console.log(data);
+          $("body").append(JSON.stringify(data));
+        });
+      });
+  body
+    h2 Provider
