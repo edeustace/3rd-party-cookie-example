@@ -20,7 +20,10 @@ Actual:
 For this to work you need to simulate 2 domains - the consumer can be localhost but the provider needs to be another domain.
 
 
+
     node consumer.js custom_domain
     node provider.js
 
     Then go to localhost:5000 - the provider will be loaded in an iframe and will try and set the cookie
+
+If you're on mac/linux you can edit `/etc/hosts`

@@ -3,11 +3,13 @@
   "name": "3rd-party-cookie-example",
   "version": "0.0.1",
   "dependencies": {
-    "express": "*",
-    "underscore": "*",
-    "jade" : "*"
+    "body-parser": "~1.15.0",
+    "cookie-parser": "~1.4.1",
+    "express": "~4.13.4",
+    "jade": "~1.11.0",
+    "lodash": "~4.6.1"
   },
   "engines": {
-    "node": ">= 0.6.0"
+    "node": ">= 5.4.1"
   }
 }

@@ -5,9 +5,9 @@ var fs = require('fs'),
 
 var app = express();
 
-var otherDomain = process.argv[2]
-
-app.use(express.bodyParser());
+var otherDomain = process.argv[2];
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
 app.set('views', __dirname + '/consumer/views');
 app.set('view engine', 'jade');
 
