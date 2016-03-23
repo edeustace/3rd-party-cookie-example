@@ -1,0 +1,14 @@
+doctype html 
+html(xmlns="http://www.w3.org/1999/html")
+  head
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+
+    script.
+      $(document).ready(function(){
+        setTimeout(function(){
+          var src = '#{iframeSrc}';
+          $('body').append('<iframe src="' + src + '"></iframe>');
+        }, 1000);
+      });
+  body
+    img(src=otherDomainAsset)

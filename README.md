@@ -22,8 +22,16 @@ For this to work you need to simulate 2 domains - the consumer can be localhost 
 
 
     node consumer.js custom_domain
+    # eg: node comsumer.js http://my-other-domain.com
     node provider.js
 
     Then go to localhost:5000 - the provider will be loaded in an iframe and will try and set the cookie
 
 If you're on mac/linux you can edit `/etc/hosts`
+
+
+### Endpoints
+
+`/` - attempts to set the cookie when loading the iframe
+`/option-one` - attempts to set the cookie when loading js from the provider
+`/option-two` - attempts to set the cookie when loading an asset from the provider

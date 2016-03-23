@@ -11,38 +11,31 @@ var cookieParser = require('cookie-parser');
 
 app.use(cookieParser('hello there sir - secret')); //<-- "Secret" to actually be secret
 
+function setAssetCookie(req, res, next){
+  res.cookie('provider_cookie', 'hello there - asset', { expires: new Date(Date.now() + 900000), httpOnly: true });
+  next();
+}
+
+app.use(setAssetCookie, express.static('provider/public'));
 app.set('views', __dirname + '/provider/views');
 app.set('view engine', 'jade');
 
 app.get('/', function(req,res,next){
+  res.cookie('provider_cookie', 'hello there', { expires: new Date(Date.now() + 900000), httpOnly: true });
+  res.render('index');
+});
 
-  console.log("------ app.get /");
-  console.log(req.query);
-  console.log(req.cookies);
+app.get('/option-one', function(req, res, next){
+  res.render('index');
+});
 
-  var agent = req.headers['user-agent'];
+app.get('/option-two', function(req, res, next){
+  res.render('index');
+});
 
-  console.log("user agent is: " + agent, isSafari(agent));
-
-  if(req.query.set_safari_cookie && !req.cookies.provider_cookie){
-    console.log("set_safari_cookie == true");
-    console.log("Set the cookie for safari then redirect back to the referrer");
-    res.cookie('provider_cookie', 'hello there', { expires: new Date(Date.now() + 900000), httpOnly: true });
-    res.send("<html><script>window.top.location='"+ decodeURIComponent(req.query.original_path) +"';</script>");
-    return;
-  }
-  else {
-    var referrer = req.get("Referrer");
-    if( needsARedirect(agent)   && !req.cookies.provider_cookie ){
-      console.log("need to do a redirect");
-      var r = encodeURIComponent(referrer);
-      console.log("Ref: " + r);
-      res.send( "<html><script> window.top.location=window.location + '?set_safari_cookie=true&original_path="+ r +"';</script></html>");
-    } else {
-      res.cookie('provider_cookie', 'hello there', { expires: new Date(Date.now() + 900000), httpOnly: true });
-      res.render('index');
-    }
-  }
+app.get('/option-one.js', function(req, res, next){
+  res.cookie('provider_cookie', 'hello there - option-one', { expires: new Date(Date.now() + 900000), httpOnly: true });
+  res.send('console.log(\'option one\');');
 });
 
 var needsARedirect = function(ua){
